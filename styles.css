@@ -24,13 +24,20 @@ body {
     border-radius: 8px;
 }
 
-h1, h2 {
+h2 {
     color: var(--secondary-color);
     margin-bottom: 20px;
 }
 
+h1 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 #menu {
-    display: flex;
+    display:flex;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
     flex-wrap: wrap;
@@ -48,14 +55,6 @@ button {
 
 button:hover {
     background-color: #2980b9;
-}
-
-#output {
-    border: 1px solid var(--border-color);
-    padding: 15px;
-    margin-top: 20px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
 }
 
 #bookList {
@@ -90,7 +89,7 @@ tr:nth-child(even) {
     background-color: white;
     padding: 20px;
     border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
 }
 
 .form-group h3 {
@@ -115,4 +114,46 @@ tr:nth-child(even) {
 .form-group button {
     display: block;
     width: 100%;
+}
+
+#toast {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#toast.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 }

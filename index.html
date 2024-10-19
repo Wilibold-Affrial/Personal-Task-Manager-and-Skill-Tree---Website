@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="toast"></div>
     <div class="container">
         <h1>Library Management System</h1>
-        <div id="menu">
-            <button onclick="showForm('addBook')">Add Book</button>
-            <button onclick="showForm('borrowBook')">Borrow Book</button>
-            <button onclick="showForm('reserveBook')">Reserve Book</button>
-            <button onclick="showForm('returnBook')">Return Book</button>
-            <button onclick="processReservation()">Process Reservation</button>
+        <div id="menu-container">
+            <div id="menu">
+                <button onclick="showForm('addBook')">Add Book</button>
+                <button onclick="showForm('borrowBook')">Borrow Book</button>
+                <button onclick="showForm('reserveBook')">Reserve Book</button>
+                <button onclick="showForm('returnBook')">Return Book</button>
+                <button onclick="processReservation()">Process Reservation</button>
+            </div>
         </div>
         <div id="forms">
             <div id="addBookForm" class="form-group">
@@ -46,7 +49,7 @@
                 <button onclick="returnBook()">Return Book</button>
             </div>
         </div>
-        <div id="output"></div>
+        
         <div id="bookList">
             <h2>Book Inventory</h2>
             <table>

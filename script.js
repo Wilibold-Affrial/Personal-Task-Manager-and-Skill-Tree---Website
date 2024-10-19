@@ -168,7 +168,10 @@ class LibraryManagementSystem {
 
 // Helper function to display output
 function displayOutput(message) {
-    document.getElementById('output').innerHTML = message;
+    const toast = document.getElementById("toast");
+    toast.innerHTML = message;
+    toast.className = "show";
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
 // Function to show the selected form and hide others
