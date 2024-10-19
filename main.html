@@ -120,7 +120,7 @@
             <button onclick="showForm('addBook')">Add Book</button>
             <button onclick="showForm('borrowBook')">Borrow Book</button>
             <button onclick="showForm('reserveBook')">Reserve Book</button>
-            <button onclick="showForm('returnBook)">Return Book</button>
+            <button onclick="showForm('returnBook')">Return Book</button>
             <button onclick="processReservation()">Process Reservation</button>
         </div>
         <div id="forms">
@@ -402,7 +402,7 @@
             if (library.isEmpty()) {
                 displayOutput("The library is empty. No books available for return.");
             } else {
-                const id = parseInt(document.getElementById('returnId').value;
+                const id = parseInt(document.getElementById('returnId').value);
                 if (!isNaN(id)) {
                     const result = library.returnBook(id);
                     displayOutput(result);
