@@ -5,69 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
-        h1, h2 { color: #333; }
-        #menu, #forms { display: flex; gap: 20px; margin-bottom: 20px; }
-        button { padding: 5px 10px; }
-        #output { border: 1px solid #ddd; padding: 10px; margin-top: 20px; }
-        #bookList { border: 1px solid #ddd; padding: 10px; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .form-group { display: none; margin-bottom: 10px; }
-        .form-group label { display: block; margin-bottom: 5px; }
-        .form-group input { width: 200px; padding: 5px; }
-        .form-group button { margin-top: 5px; }
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --text-color: #333;
+            --border-color: #bdc3c7;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        #menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #output {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        #bookList {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .form-group {
+            display: none;
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-group h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        .form-group button {
+            display: block;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <h1>Library Management System</h1>
-    <div id="menu">
-        <button onclick="showForm('addBook')">Add Book</button>
-        <button onclick="showForm('borrowBook')">Borrow Book</button>
-        <button onclick="showForm('reserveBook')">Reserve Book</button>
-        <button onclick="returnBook()">Return Book</button>
-        <button onclick="processReservation()">Process Reservation</button>
-    </div>
-    <div id="forms">
-        <div id="addBookForm" class="form-group">
-            <label for="bookTitle">Book Title:</label>
-            <input type="text" id="bookTitle" required>
-            <label for="bookAuthor">Book Author:</label>
-            <input type="text" id="bookAuthor" required>
-            <button onclick="addBook()">Add Book</button>
+    <div class="container">
+        <h1>Library Management System</h1>
+        <div id="menu">
+            <button onclick="showForm('addBook')">Add Book</button>
+            <button onclick="showForm('borrowBook')">Borrow Book</button>
+            <button onclick="showForm('reserveBook')">Reserve Book</button>
+            <button onclick="returnBook()">Return Book</button>
+            <button onclick="processReservation()">Process Reservation</button>
         </div>
-        <div id="borrowBookForm" class="form-group">
-            <label for="borrowId">Book ID:</label>
-            <input type="number" id="borrowId" required>
-            <button onclick="borrowBook()">Borrow Book</button>
+        <div id="forms">
+            <div id="addBookForm" class="form-group">
+                <h3>Add New Book</h3>
+                <label for="bookTitle">Book Title:</label>
+                <input type="text" id="bookTitle" required>
+                <label for="bookAuthor">Book Author:</label>
+                <input type="text" id="bookAuthor" required>
+                <button onclick="addBook()">Add Book</button>
+            </div>
+            <div id="borrowBookForm" class="form-group">
+                <h3>Borrow a Book</h3>
+                <label for="borrowId">Book ID:</label>
+                <input type="number" id="borrowId" required>
+                <button onclick="borrowBook()">Borrow Book</button>
+            </div>
+            <div id="reserveBookForm" class="form-group">
+                <h3>Reserve a Book</h3>
+                <label for="reserveId">Book ID:</label>
+                <input type="number" id="reserveId" required>
+                <label for="memberName">Your Name:</label>
+                <input type="text" id="memberName" required>
+                <button onclick="reserveBook()">Reserve Book</button>
+            </div>
         </div>
-        <div id="reserveBookForm" class="form-group">
-            <label for="reserveId">Book ID:</label>
-            <input type="number" id="reserveId" required>
-            <label for="memberName">Your Name:</label>
-            <input type="text" id="memberName" required>
-            <button onclick="reserveBook()">Reserve Book</button>
+        <div id="output"></div>
+        <div id="bookList">
+            <h2>Book Inventory</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="bookListBody">
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div id="output"></div>
-    <h2>Book List</h2>
-    <div id="bookList">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="bookListBody">
-            </tbody>
-        </table>
     </div>
 
     <script>
+
         // Book class
         class Book {
             constructor(id, title, author) {
@@ -235,9 +334,6 @@
             }
         }
 
-        // Initialize the library
-        const library = new LibraryManagementSystem();
-
         // Helper function to display output
         function displayOutput(message) {
             document.getElementById('output').innerHTML = message;
@@ -314,6 +410,46 @@
             const result = library.processNextReservation();
             displayOutput(result);
         }
+
+        // Additional function for smooth transitions
+        function showForm(formId) {
+            const forms = document.querySelectorAll('.form-group');
+            forms.forEach(form => {
+                form.style.display = 'none';
+                form.style.opacity = '0';
+            });
+            const selectedForm = document.getElementById(formId + 'Form');
+            selectedForm.style.display = 'block';
+            setTimeout(() => {
+                selectedForm.style.opacity = '1';
+            }, 10);
+        }
+
+        // Function to update status cell color
+        function updateStatusColor(cell, status) {
+            cell.textContent = status;
+            cell.style.color = status === 'Available' ? '#27ae60' : '#c0392b';
+            cell.style.fontWeight = 'bold';
+        }
+
+        // Override updateBookList to include color coding
+        LibraryManagementSystem.prototype.updateBookList = function() {
+            const books = this.displayAllBooks();
+            const bookListBody = document.getElementById('bookListBody');
+            bookListBody.innerHTML = '';
+            books.forEach(book => {
+                const row = bookListBody.insertRow();
+                row.insertCell(0).textContent = book.id;
+                row.insertCell(1).textContent = book.title;
+                row.insertCell(2).textContent = book.author;
+                const statusCell = row.insertCell(3);
+                updateStatusColor(statusCell, book.isAvailable ? 'Available' : 'Borrowed');
+            });
+        };
+
+        // Initialize the library and update book list
+        const library = new LibraryManagementSystem();
+        library.updateBookList();
     </script>
 </body>
 </html>
