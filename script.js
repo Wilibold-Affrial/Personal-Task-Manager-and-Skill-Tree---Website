@@ -4,20 +4,20 @@ class Book {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.isAvailable = true;
+        this.isAvailable = true; //to check if the book is available to borrow
     }
 }
 
-// BST Node class
+// BST Node class, represents a node in the Binary Search Tree
 class BSTNode {
     constructor(book) {
         this.book = book;
-        this.left = null;
-        this.right = null;
+        this.left = null; //Left child
+        this.right = null; //Right child
     }
 }
 
-// Queue Node class
+// Queue Node class, represents a node in the queue for reservation 
 class QNode {
     constructor(bookId, memberName) {
         this.bookId = bookId;
@@ -29,11 +29,12 @@ class QNode {
 // Library Management System
 class LibraryManagementSystem {
     constructor() {
-        this.root = null;
+        this.root = null; //root of BST
         this.reservations = { front: null, rear: null };
-        this.bookId = 1;
+        this.bookId = 1; //Auto Increament ID for books
     }
 
+    //Method to add new book to the BST
     addBook(title, author) {
         const book = new Book(this.bookId++, title, author);
         this.root = this._insertRec(this.root, book);
@@ -41,10 +42,12 @@ class LibraryManagementSystem {
         return book;
     }
 
+    //Recursive helper method to insert a book into BST
     _insertRec(node, book) {
         if (node === null) {
             return new BSTNode(book);
         }
+        //Traverse left or right base on the book ID
         if (book.id < node.book.id) {
             node.left = this._insertRec(node.left, book);
         } else if (book.id > node.book.id) {
@@ -53,20 +56,24 @@ class LibraryManagementSystem {
         return node;
     }
 
+    //Method to search for book in the BST by ID
     searchBook(id) {
         return this._searchRec(this.root, id);
     }
 
+    //Recursive helper method to search for a book in the BST
     _searchRec(node, id) {
         if (node === null || node.book.id === id) {
             return node ? node.book : null;
         }
+        //Travese left or right based on the book ID
         if (id < node.book.id) {
             return this._searchRec(node.left, id);
         }
         return this._searchRec(node.right, id);
     }
 
+    //Method to reserve a book
     reserveBook(bookId, memberName) {
         const book = this.searchBook(bookId);
         if (book && !book.isAvailable) {
@@ -79,6 +86,7 @@ class LibraryManagementSystem {
         }
     }
 
+    //Method to add a reservation to the queue
     _enqueue(bookId, memberName) {
         const newNode = new QNode(bookId, memberName);
         if (this.reservations.rear === null) {
@@ -89,6 +97,7 @@ class LibraryManagementSystem {
         }
     }
 
+    //Method to process the next reservation in the queue
     processNextReservation() {
         if (this.reservations.front === null) {
             return "No reservations in queue";
@@ -107,6 +116,7 @@ class LibraryManagementSystem {
         return "Error processing reservation";
     }
 
+    //Method to borrow a book
     borrowBook(id) {
         const book = this.searchBook(id);
         if (book && book.isAvailable) {
@@ -120,6 +130,7 @@ class LibraryManagementSystem {
         }
     }
 
+    //Method to return a book
     returnBook(id) {
         const book = this.searchBook(id);
         if (book && !book.isAvailable) {
@@ -133,12 +144,14 @@ class LibraryManagementSystem {
         }
     }
 
+    //Method to display all books in the BST (in-order traversal)
     displayAllBooks() {
         const books = [];
         this._inorderTraversal(this.root, books);
         return books;
     }
 
+    //Recursive helper methor for in-order traversal of BST
     _inorderTraversal(node, books) {
         if (node !== null) {
             this._inorderTraversal(node.left, books);
@@ -147,10 +160,12 @@ class LibraryManagementSystem {
         }
     }
 
+    //Method to check if the BST is empty
     isEmpty() {
         return this.root === null;
     }
 
+    //Method to update the book list in the UI
     updateBookList() {
         const books = this.displayAllBooks();
         const bookListBody = document.getElementById('bookListBody');
@@ -174,7 +189,7 @@ function displayOutput(message) {
     setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
-// Function to show the selected form and hide others
+// Method to show the selected form and hide others
 function showForm(formId) {
     const forms = document.querySelectorAll('.form-group');
     forms.forEach(form => {
@@ -188,7 +203,7 @@ function showForm(formId) {
     }, 10);
 }
 
-// Function to add a book
+// Method to add a book
 function addBook() {
     const title = document.getElementById('bookTitle').value;
     const author = document.getElementById('bookAuthor').value;
@@ -202,7 +217,7 @@ function addBook() {
     }
 }
 
-// Function to borrow a book
+// Method to borrow a book
 function borrowBook() {
     const id = parseInt(document.getElementById('borrowId').value);
     if (!isNaN(id)) {
@@ -214,7 +229,7 @@ function borrowBook() {
     }
 }
 
-// Function to reserve a book
+// Method to reserve a book
 function reserveBook() {
     if (library.isEmpty()) {
         displayOutput("The library is empty. No books available for reservation.");
@@ -232,7 +247,7 @@ function reserveBook() {
     }
 }
 
-// Function to return a book
+// Method to return a book
 function returnBook() {
     if (library.isEmpty()) {
         displayOutput("The library is empty. No books available for return.");
@@ -247,13 +262,13 @@ function returnBook() {
     }
 }
 
-// Function to process reservation
+// Method to process reservation
 function processReservation() {
     const result = library.processNextReservation();
     displayOutput(result);
 }
 
-// Function to update status cell color
+// Method to update status cell color
 function updateStatusColor(cell, status) {
     cell.textContent = status;
     cell.style.color = status === 'Available' ? '#27ae60' : '#c0392b';
